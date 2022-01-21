@@ -27,7 +27,7 @@ it should look like this:
 |---|---|---|---|
 | botToken | secret token of your discord bot | None | True |
 | botStatus | discord status of your bot | None | False |
-| looDelay | delay in seconds between each message of the bot (everytime the bot run through the loop, it sends the homeworks for tomorrow) | 86400 (= 24 hours) | True |
+| loopDelay | delay in seconds between each message of the bot (everytime the bot run through the loop, it sends the homeworks for tomorrow) | 86400 (= 24 hours) | True |
 | channelId | discord id of the channel you want the bot to send the homeworks to | None | True |
 | ecLogin | your [Ecole directe](https://ecoledirecte.com) login | True |
 | ecPassword | your [Ecole directe](https://ecoledirecte.com) password | True |
