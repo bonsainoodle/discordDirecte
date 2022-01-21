@@ -24,8 +24,8 @@ def getHomeworks():
     token, studentId = getToken(LOGIN, PASSWORD, PROXY)
 
     BASE_URL = "https://api.ecoledirecte.com"
-    TOMORROW_DATE = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")  # TO CHANGEEEEEE
-    HOMEWORK_PATH = f"/v3/Eleves/{studentId}/cahierdetexte/{TOMORROW_DATE}.awp?verbe=get&v=1.11.0"
+    TOMORROW_DATE = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")
+    HOMEWORK_PATH = f"/v3/Eleves/{studentId}/cahierdetexte/2022-01-20.awp?verbe=get&v=1.11.0"  # CHANGEEEE
     QUERY_URL = BASE_URL + HOMEWORK_PATH
 
     homework_payload = {"data": "{}"}
@@ -37,13 +37,25 @@ def getHomeworks():
 
     subjects = {}
     for subject in response_subjects:
+        if not "aFaire" in subject:
+            continue
+        if not "contenu" in subject["aFaire"]:
+            continue
+
+        documents = []
+        if "documents" in subject["aFaire"] and subject["aFaire"]["documents"]:
+            for document in subject["aFaire"]["documents"]:
+                documents.append(document["libelle"])
+
         subjects[subject["matiere"]] = {
+            "teacher": subject["nomProf"],
             "content": base64.b64decode(subject["aFaire"]["contenu"])
             .decode("utf-8")
             .replace("<p>", "")
             .replace("</p>", "")
             .replace("\n\n", "\n"),
             "interrogation": subject["interrogation"],
+            "documents": documents,
         }
 
     homeworks = {"date": TOMORROW_DATE, "subjects": subjects}

@@ -81,18 +81,32 @@ async def sendHomeworks():
         )
 
         for subject in homeworks["subjects"]:
+            teacher = homeworks["subjects"][subject]["teacher"]
             interrogation = homeworks["subjects"][subject]["interrogation"]
+            documents = homeworks["subjects"][subject]["documents"]
+            documentsJoined = ", ".join(documents)
 
             if interrogation == "True":
                 interrogation = "Oui"
             else:
                 interrogation = "Non"
 
-            embed.add_field(
-                name=f"**{subject}**",
-                value=(homeworks["subjects"][subject]["content"] + f"\n__Interrogation__: {interrogation}"),
-                inline=False,
-            )
+            if documents:
+                embed.add_field(
+                    name=f"**{subject} ({teacher})**",
+                    value=(
+                        homeworks["subjects"][subject]["content"]
+                        + f"\n__Interrogation__: {interrogation}"
+                        + f"\n__Il y a {len(documents)} document(s) disponible(s)__: {documentsJoined}"
+                    ),
+                    inline=False,
+                )
+            else:
+                embed.add_field(
+                    name=f"**{subject} ({teacher})**",
+                    value=(homeworks["subjects"][subject]["content"] + f"\n__Interrogation__: {interrogation}"),
+                    inline=False,
+                )
     else:
         embed = discord.Embed(
             title=(f"Il n'y a pas de devoirs pour le {date.day} {months[date.month - 1]} {date.year}  🎉"),
