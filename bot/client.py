@@ -22,12 +22,19 @@ client = discord.Client()
 
 CHANNEL_ID = secrets["channelId"]
 LOOP_DELAY = 86400
+NOTIF_ROLE_ID = None
 
 if "loopDelay" in secrets:
     try:
         LOOP_DELAY = int(secrets["loopDelay"])
     except Exception:
         LOOP_DELAY = 86400
+
+if "notifRoleId" in secrets:
+    try:
+        NOTIF_ROLE_ID = int(secrets["notifRoleId"])
+    except Exception:
+        NOTIF_ROLE_ID = None
 
 
 @client.event
@@ -76,7 +83,8 @@ async def sendHomeworks():
     if homeworks["subjects"]:
         embed = discord.Embed(
             title=(f"Devoir pour le {date.day} {months[date.month - 1]} {date.year}  📋"),
-            description="Message automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
+            description=f"||<@&{NOTIF_ROLE_ID}>||\nMessage automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
+            url="https://ecoledirecte.com",
             color=discord.Color.purple(),
         )
 
@@ -110,7 +118,7 @@ async def sendHomeworks():
     else:
         embed = discord.Embed(
             title=(f"Il n'y a pas de devoirs pour le {date.day} {months[date.month - 1]} {date.year}  🎉"),
-            description="Message automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
+            description=f"||<@&{NOTIF_ROLE_ID}>||\nMessage automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
             color=discord.Color.purple(),
         )
 

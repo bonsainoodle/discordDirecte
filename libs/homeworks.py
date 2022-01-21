@@ -3,6 +3,7 @@ import repackage
 repackage.up()
 
 import json
+import html
 import requests as req
 import base64
 from datetime import datetime, timedelta
@@ -25,7 +26,7 @@ def getHomeworks():
 
     BASE_URL = "https://api.ecoledirecte.com"
     TOMORROW_DATE = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")
-    HOMEWORK_PATH = f"/v3/Eleves/{studentId}/cahierdetexte/2022-01-20.awp?verbe=get&v=1.11.0"  # CHANGEEEE
+    HOMEWORK_PATH = f"/v3/Eleves/{studentId}/cahierdetexte/{TOMORROW_DATE}.awp?verbe=get&v=1.11.0"
     QUERY_URL = BASE_URL + HOMEWORK_PATH
 
     homework_payload = {"data": "{}"}
@@ -48,9 +49,8 @@ def getHomeworks():
                 documents.append(document["libelle"])
 
         subjects[subject["matiere"]] = {
-            "teacher": subject["nomProf"],
-            "content": base64.b64decode(subject["aFaire"]["contenu"])
-            .decode("utf-8")
+            "teacher": subject["nomProf"].strip(),
+            "content": html.unescape(base64.b64decode(subject["aFaire"]["contenu"]).decode("utf-8"))
             .replace("<p>", "")
             .replace("</p>", "")
             .replace("\n\n", "\n"),

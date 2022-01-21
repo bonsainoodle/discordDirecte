@@ -29,6 +29,7 @@ it should look like this:
 | botStatus | discord status of your bot | None | False |
 | loopDelay | delay in seconds between each message of the bot (everytime the bot runs through the loop, it sends the homeworks for tomorrow) | 86400 (= 24 hours) | False |
 | channelId | discord id of the channel you want the bot to send the homeworks to | None | True |
+| notifRoleId | discord id of the role you want the bot to ping when it sends a message | None | False |
 | ecLogin | your [Ecole directe](https://ecoledirecte.com) login | None | True |
 | ecPassword | your [Ecole directe](https://ecoledirecte.com) password | None | True |
 
