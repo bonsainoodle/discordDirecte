@@ -1,4 +1,3 @@
-from itsdangerous import exc
 import repackage
 
 repackage.up()
@@ -31,9 +30,23 @@ if "loopDelay" in secrets:
 
 if "notifRoleId" in secrets:
     try:
-        NOTIF_ROLE_ID = int(secrets["notifRoleId"])
+        NOTIF_ROLE_ID = f'<@&{int(secrets["notifRoleId"])}>'
     except Exception:
         NOTIF_ROLE_ID = None
+
+
+def getChannel():
+    CHANNEL = None
+    for guild in client.guilds:
+        CHANNEL = guild.get_channel(CHANNEL_ID)
+
+    if CHANNEL == None:
+        print(f"No channel found for id={CHANNEL_ID}")
+        return
+
+    print(f"Channel found for id={CHANNEL_ID}")
+
+    return CHANNEL
 
 
 @client.event
@@ -47,18 +60,14 @@ async def on_ready():
     if secrets["botStatus"]:
         await client.change_presence(activity=discord.Game(name=secrets["botStatus"]))
 
+    global CHANNEL
+    CHANNEL = getChannel()
+
 
 @tasks.loop(seconds=LOOP_DELAY)
 async def sendHomeworks():
-    CHANNEL = None
-    for guild in client.guilds:
-        CHANNEL = guild.get_channel(CHANNEL_ID)
-
-    if CHANNEL == None:
-        print(f"No channel found for id={CHANNEL_ID}")
-        return
-
-    print(f"Channel found for id={CHANNEL_ID}")
+    global CHANNEL
+    CHANNEL = getChannel()
 
     homeworks = libs.homeworks.getHomeworks()
 
@@ -82,7 +91,7 @@ async def sendHomeworks():
     if homeworks["subjects"]:
         embed = discord.Embed(
             title=(f"Devoir pour le {date.day} {months[date.month - 1]} {date.year}  📋"),
-            description=f"||<@&{NOTIF_ROLE_ID}>||\nMessage automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
+            description=f"{'||<@&{NOTIF_ROLE_ID}>||\n' if NOTIF_ROLE_ID else ''}Message automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
             url="https://ecoledirecte.com",
             color=discord.Color.purple(),
         )
@@ -117,7 +126,7 @@ async def sendHomeworks():
     else:
         embed = discord.Embed(
             title=(f"Il n'y a pas de devoirs pour le {date.day} {months[date.month - 1]} {date.year}  🎉"),
-            description=f"||<@&{NOTIF_ROLE_ID}>||\nMessage automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
+            description=f"{'||<@&{NOTIF_ROLE_ID}>||\n' if NOTIF_ROLE_ID else ''}Message automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
             color=discord.Color.purple(),
         )
 
