@@ -8,7 +8,6 @@ from discord.ext import tasks
 import datetime
 import json
 
-import secrets
 import libs.homeworks
 
 

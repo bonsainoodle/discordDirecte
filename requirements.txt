@@ -1,8 +1,7 @@
-itsdangerous==2.0.1
-discord.py==1.7.3
-free_proxy==1.0.5
-requests==2.20.1
 repackage==0.7.3
+free_proxy==1.0.5
+discord.py==1.7.3
+itsdangerous==2.0.1
+requests==2.20.1
 discord==1.7.3
 fp==0.2
-secrets==1.0.2
