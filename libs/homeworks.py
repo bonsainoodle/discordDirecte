@@ -26,7 +26,7 @@ def getHomeworks():
 
     BASE_URL = "https://api.ecoledirecte.com"
     TOMORROW_DATE = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")
-    HOMEWORK_PATH = f"/v3/Eleves/{studentId}/cahierdetexte/2022-01-20.awp?verbe=get&v=1.11.0"
+    HOMEWORK_PATH = f"/v3/Eleves/{studentId}/cahierdetexte/{TOMORROW_DATE}.awp?verbe=get&v=1.11.0"
     QUERY_URL = BASE_URL + HOMEWORK_PATH
 
     homework_payload = {"data": "{}"}

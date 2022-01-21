@@ -21,8 +21,9 @@ assert "channelId" in secrets
 client = discord.Client()
 
 CHANNEL_ID = secrets["channelId"]
-LOOP_DELAY = 86400
 NOTIF_ROLE_ID = None
+
+LOOP_DELAY = 86400
 
 if "loopDelay" in secrets:
     try:
@@ -62,10 +63,12 @@ async def on_ready():
     if secrets["botStatus"]:
         await client.change_presence(activity=discord.Game(name=secrets["botStatus"]))
 
+    time.sleep(10)
+    sendHomeworks.start()
+
 
 @tasks.loop(seconds=LOOP_DELAY)
 async def sendHomeworks():
-    time.sleep(10)
     CHANNEL = getChannel()
 
     homeworks = libs.homeworks.getHomeworks()
@@ -134,10 +137,5 @@ async def sendHomeworks():
     await CHANNEL.send(embed=embed)
     print("Message sent!")
 
-
-thread = Thread(target=sendHomeworks.start())
-thread.start()
-thread.join()
-print("Thread finished...exiting")
 
 client.run(secrets["botToken"])
