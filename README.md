@@ -27,10 +27,10 @@ it should look like this:
 |---|---|---|---|
 | botToken | secret token of your discord bot | None | True |
 | botStatus | discord status of your bot | None | False |
-| loopDelay | delay in seconds between each message of the bot (everytime the bot run through the loop, it sends the homeworks for tomorrow) | 86400 (= 24 hours) | True |
+| loopDelay | delay in seconds between each message of the bot (everytime the bot run through the loop, it sends the homeworks for tomorrow) | 86400 (= 24 hours) | False |
 | channelId | discord id of the channel you want the bot to send the homeworks to | None | True |
-| ecLogin | your [Ecole directe](https://ecoledirecte.com) login | True |
-| ecPassword | your [Ecole directe](https://ecoledirecte.com) password | True |
+| ecLogin | your [Ecole directe](https://ecoledirecte.com) login | None | True |
+| ecPassword | your [Ecole directe](https://ecoledirecte.com) password | None | True |
 
 ## run the bot
 execute the ```start.py``` file at the root of ```discordDirecte``` directory.
