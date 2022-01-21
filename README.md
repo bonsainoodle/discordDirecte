@@ -19,6 +19,7 @@ it should look like this:
     "botStatus": "STATUS",
     "loopDelay": 86400,
     "channelId": 123456789101112,
+    "notifRoledId": 123456789101112,
     "ecLogin": "LOGIN",
     "ecPassword": "PASSWORD"
 }
