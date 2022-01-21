@@ -23,14 +23,14 @@ it should look like this:
     "ecPassword": "PASSWORD"
 }
 ```
-| Key | Description | Default |
-|---|---|---|
-| botToken | secret token of your discord bot | None |
-| botStatus | discord status of your bot | None |
-| looDelay | delay in seconds between each message of the bot (everytime the bot run through the loop, it sends the homeworks for tomorrow) | 86400 (= 24 hours) |
-| channelId | discord id of the channel you want the bot to send the homeworks to | None |
-| ecLogin | your [Ecole directe](https://ecoledirecte.com) login |
-| ecPassword | your [Ecole directe](https://ecoledirecte.com) password |
+| Key | Description | Default | Required |
+|---|---|---|---|
+| botToken | secret token of your discord bot | None | True |
+| botStatus | discord status of your bot | None | False |
+| looDelay | delay in seconds between each message of the bot (everytime the bot run through the loop, it sends the homeworks for tomorrow) | 86400 (= 24 hours) | True |
+| channelId | discord id of the channel you want the bot to send the homeworks to | None | True |
+| ecLogin | your [Ecole directe](https://ecoledirecte.com) login | True |
+| ecPassword | your [Ecole directe](https://ecoledirecte.com) password | True |
 
 ## run the bot
 execute the ```start.py``` file at the root of ```discordDirecte``` directory.
