@@ -3,6 +3,7 @@ import repackage
 repackage.up()
 
 import discord
+import time
 from discord.ext import tasks
 import datetime
 import json
@@ -60,13 +61,10 @@ async def on_ready():
     if secrets["botStatus"]:
         await client.change_presence(activity=discord.Game(name=secrets["botStatus"]))
 
-    global CHANNEL
-    CHANNEL = getChannel()
-
 
 @tasks.loop(seconds=LOOP_DELAY)
 async def sendHomeworks():
-    global CHANNEL
+    time.sleep(10)
     CHANNEL = getChannel()
 
     homeworks = libs.homeworks.getHomeworks()
