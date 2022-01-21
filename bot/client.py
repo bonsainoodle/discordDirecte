@@ -1,3 +1,4 @@
+from itsdangerous import exc
 import repackage
 
 repackage.up()
@@ -16,11 +17,17 @@ with open("config.json", "r") as f:
 
 assert "botToken" in secrets
 assert "channelId" in secrets
-assert "loopDelay" in secrets
 
 client = discord.Client()
 
 CHANNEL_ID = secrets["channelId"]
+LOOP_DELAY = 86400
+
+if "loopDelay" in secrets:
+    try:
+        LOOP_DELAY = int(secrets["loopDelay"])
+    except Exception:
+        LOOP_DELAY = 86400
 
 
 @client.event
@@ -35,7 +42,7 @@ async def on_ready():
         await client.change_presence(activity=discord.Game(name=secrets["botStatus"]))
 
 
-@tasks.loop(seconds=secrets["loopDelay"])
+@tasks.loop(seconds=LOOP_DELAY)
 async def sendHomeworks():
     CHANNEL = None
     for guild in client.guilds:
