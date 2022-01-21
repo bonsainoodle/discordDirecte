@@ -93,7 +93,7 @@ async def sendHomeworks():
     if homeworks["subjects"]:
         embed = discord.Embed(
             title=(f"Devoir pour le {date.day} {months[date.month - 1]} {date.year}  📋"),
-            description=f"{'||{NOTIF_ROLE}||' if NOTIF_ROLE else ''}\nMessage automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
+            description=f"{'||%s||' % NOTIF_ROLE  if NOTIF_ROLE else ''}\nMessage automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
             url="https://ecoledirecte.com",
             color=discord.Color.purple(),
         )
@@ -128,7 +128,7 @@ async def sendHomeworks():
     else:
         embed = discord.Embed(
             title=(f"Il n'y a pas de devoirs pour le {date.day} {months[date.month - 1]} {date.year}  🎉"),
-            description=f"{'||{NOTIF_ROLE}||' if NOTIF_ROLE else ''}\nMessage automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
+            description=f"{'||%s||' % NOTIF_ROLE if NOTIF_ROLE else ''}\nMessage automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
             color=discord.Color.purple(),
         )
 
