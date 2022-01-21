@@ -4,6 +4,7 @@ repackage.up()
 
 import discord
 import time
+from threading import Thread
 from discord.ext import tasks
 import datetime
 import json
@@ -134,5 +135,9 @@ async def sendHomeworks():
     print("Message sent!")
 
 
-sendHomeworks.start()
+thread = Thread(target=sendHomeworks.start())
+thread.start()
+thread.join()
+print("Thread finished...exiting")
+
 client.run(secrets["botToken"])
