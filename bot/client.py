@@ -75,8 +75,8 @@ async def sendHomeworks():
 
     if homeworks["subjects"]:
         embed = discord.Embed(
-            title=(f"Devoir pour le {date.day} {months[date.month - 1]} {date.year} ✍️"),
-            description="Message automatique qui ne récupère UNIQUEMENT les devoirs sur école directe.",
+            title=(f"Devoir pour le {date.day} {months[date.month - 1]} {date.year}  📋"),
+            description="Message automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
             color=discord.Color.purple(),
         )
 
@@ -95,8 +95,8 @@ async def sendHomeworks():
             )
     else:
         embed = discord.Embed(
-            title=(f"Il n'y a pas de devoirs pour le {date.day} {months[date.month - 1]} {date.year} 🎉"),
-            description="Message automatique qui ne récupère UNIQUEMENT les devoirs sur école directe.",
+            title=(f"Il n'y a pas de devoirs pour le {date.day} {months[date.month - 1]} {date.year}  🎉"),
+            description="Message automatique qui récupère UNIQUEMENT les devoirs sur école directe.",
             color=discord.Color.purple(),
         )
 
