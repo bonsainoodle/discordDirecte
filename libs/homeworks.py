@@ -24,7 +24,7 @@ def getHomeworks():
     token, studentId = getToken(LOGIN, PASSWORD, PROXY)
 
     BASE_URL = "https://api.ecoledirecte.com"
-    TOMORROW_DATE = (datetime.today() + timedelta(days=3)).strftime("%Y-%m-%d")  # TO CHANGEEEEEE
+    TOMORROW_DATE = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")  # TO CHANGEEEEEE
     HOMEWORK_PATH = f"/v3/Eleves/{studentId}/cahierdetexte/{TOMORROW_DATE}.awp?verbe=get&v=1.11.0"
     QUERY_URL = BASE_URL + HOMEWORK_PATH
 

@@ -17,7 +17,6 @@ with open("config.json", "r") as f:
 assert "botToken" in secrets
 assert "channelId" in secrets
 assert "loopDelay" in secrets
-assert "botStatus" in secrets
 
 client = discord.Client()
 
@@ -32,7 +31,8 @@ async def on_ready():
     print(client.user.id)
     print("------")
 
-    await client.change_presence(activity=discord.Game(name=secrets["botStatus"]))
+    if secrets["botStatus"]:
+        await client.change_presence(activity=discord.Game(name=secrets["botStatus"]))
 
 
 @tasks.loop(seconds=secrets["loopDelay"])
@@ -66,24 +66,31 @@ async def sendHomeworks():
         "décembre",
     ]
 
-    embed = discord.Embed(
-        title=(f"Devoir pour le {date.day} {months[date.month - 1]} {date.year}"),
-        description="Message automatique qui ne récupère UNIQUEMENT les devoirs sur école directe.",
-        color=discord.Color.purple(),
-    )
+    if homeworks["subjects"]:
+        embed = discord.Embed(
+            title=(f"Devoir pour le {date.day} {months[date.month - 1]} {date.year} ✍️"),
+            description="Message automatique qui ne récupère UNIQUEMENT les devoirs sur école directe.",
+            color=discord.Color.purple(),
+        )
 
-    for subject in homeworks["subjects"]:
-        interrogation = homeworks["subjects"][subject]["interrogation"]
+        for subject in homeworks["subjects"]:
+            interrogation = homeworks["subjects"][subject]["interrogation"]
 
-        if interrogation == "True":
-            interrogation = "Oui"
-        else:
-            interrogation = "Non"
+            if interrogation == "True":
+                interrogation = "Oui"
+            else:
+                interrogation = "Non"
 
-        embed.add_field(
-            name=f"**{subject}**",
-            value=(homeworks["subjects"][subject]["content"] + f"\n__Interrogation__: {interrogation}"),
-            inline=False,
+            embed.add_field(
+                name=f"**{subject}**",
+                value=(homeworks["subjects"][subject]["content"] + f"\n__Interrogation__: {interrogation}"),
+                inline=False,
+            )
+    else:
+        embed = discord.Embed(
+            title=(f"Il n'y a pas de devoirs pour le {date.day} {months[date.month - 1]} {date.year} 🎉"),
+            description="Message automatique qui ne récupère UNIQUEMENT les devoirs sur école directe.",
+            color=discord.Color.purple(),
         )
 
     embed.set_footer(text="Made with 💜 by Bonsaï#8521")
