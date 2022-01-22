@@ -11,7 +11,8 @@ you must invite the bot on the discord server you want it to send the homeworks!
 git clone https://github.com/EsprIx/discordDirecte
 ```
 
-then run ```bash
+then run 
+```bash
 pip install -r requirements.txt
 ```
 under the ```discordDirecte```
