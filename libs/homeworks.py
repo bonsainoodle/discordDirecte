@@ -7,10 +7,26 @@ import html
 import requests as req
 import base64
 from datetime import datetime, timedelta
-from libs.utils import getToken, getProxy
+from libs.utils import getInfos, getProxy
 
 
 def getHomeworks():
+    """
+    Returns the homeworks for the next day. It retrieves for every subjects : the teacher, the content, if the teacher specified it's an interrogation and if the teacher gave documents.
+
+    Returns:
+        [dict]: {"date": "2022-01-01",
+                "subjects": {"maths": {"content": "Prepare for test",
+                                       "interrogation": True,
+                                       "teacher": "xxx",
+                                       "documents": []},
+                             "french": {"content": "Do xxx exercices",
+                                        "interrogation": False,
+                                        "teacher": "xxx",
+                                        "documents": ["file1.pdf", "file2.pdf"]}
+                            }
+                }
+    """
     with open("config.json", "r") as f:
         secrets = json.load(f)
 
@@ -22,7 +38,7 @@ def getHomeworks():
 
     PROXY = getProxy()
 
-    token, studentId = getToken(LOGIN, PASSWORD, PROXY)
+    token, studentId = getInfos(LOGIN, PASSWORD, PROXY)
 
     BASE_URL = "https://api.ecoledirecte.com"
     TOMORROW_DATE = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")
