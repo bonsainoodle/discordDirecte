@@ -8,7 +8,7 @@ you must invite the bot on the discord server you want it to send the homeworks!
 
 ## installation
 ```bash
-git clone https://github.com/EsprIx/discordDirecte
+git clone https://github.com/bonsainoodle/discordDirecte
 ```
 
 then run under the ```discordDirecte``` directory
